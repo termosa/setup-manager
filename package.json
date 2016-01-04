@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/termosa/setup-manager#readme",
   "dependencies": {
-    "clone": "^1.0.2"
+    "clone": "1.0.2"
   }
 }

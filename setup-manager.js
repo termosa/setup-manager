@@ -1,52 +1,52 @@
-var $ = require("./utils");
+var _ = require("./utils");
 
+/*
+ * Get the chain of properties
+ */
 function parse(name) {
   return name.split(".");
 }
 
+/*
+ * Get the value of the object property
+ */
 function pick(obj, name) {
   var key, keys = parse(name);
-  while(key = keys.shift()) {
-    if (keys.length == 0) { return obj[key]; }
-    if (!$.isObject(obj[key])) { return; }
+  while (key = keys.shift()) {
+    if (keys.length === 0) { return obj[key]; }
+    if (!_.isObject(obj[key])) { return; }
     obj = obj[key];
   }
 }
 
+/*
+ * Set the value to the object property
+ */
 function put(obj, name, value) {
   var key, keys = parse(name);
-  while(key = keys.shift()) {
-    if (keys.length == 0) {
-      if ($.isObject(obj[key])) {
-        $.extend(obj[key], value);
+  while (key = keys.shift()) {
+    if (keys.length === 0) {
+      if (_.isObject(obj[key])) {
+        _.assign(obj[key], value);
       } else {
-        if ($.isObject(value)) {
-          obj[key] = $.clone(value);
-        } else {
-          obj[key] = value;
-        }
+        obj[key] = _.clone(value);
       }
       return;
     }
-    if (!$.isObject(obj[key])) {
-      obj[key] = {};
-    }
-    obj = obj[key];
+
+    obj = _.isObject(obj[key])
+      ? obj[key] : (obj[key] = {});
   }
 }
 
 module.exports = function(instance) {
-  var config = ($.isObject(instance) ? $.clone(instance) : {});
+  var config = instance ? _.clone(instance) : {} ;
 
   var manager = {
-    setup: function() {
-      return config;
-    },
-    get: function(name) {
-      return pick(config, name);
-    },
+    setup: function() { return config; },
+    get: function(name) { return pick(config, name); },
     set: function(name, value) {
-      if (typeof value == "undefined") {
+      if (typeof value === "undefined") {
         return function builder(value) {
           put(config, name, value);
           return builder;
