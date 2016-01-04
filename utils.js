@@ -1,23 +1,20 @@
+var clone = require("clone");
+
 function isObject(variable) {
-  return typeof variable == "object";
+  return typeof variable === "object";
 }
 
 function isArray(variable) {
-  return variable instanceof Array;
+  return isObject(variable) && variable.toString() === '[object Array]';
 }
 
-function clone(object) {
-  if (isArray(object)) {
-    return object.slice();
-  }
-  return extend({}, object);
+function extendObject(hash, values) {
+  return Object.assign(hash, values);
 }
 
 function extendArray(list, values) {
   if (isArray(values)) {
-    values.forEach(function (value) {
-      list.push(value);
-    });
+    values.forEach(list.push.bind(list));
   } else {
     list.push(values);
   }
@@ -25,15 +22,9 @@ function extendArray(list, values) {
 }
 
 function extend(object, values) {
-  if (object instanceof Array) {
-    return extendArray(object, values);
-  }
-
-  var keys = Object.keys(values);
-  for (var i = keys.length; i--;) {
-    object[keys[i]] = values[keys[i]];
-  }
-  return object;
+  return isArray(object)
+    ? extendArray(object, values)
+    : extendObject(object, values);
 }
 
 module.exports = {
