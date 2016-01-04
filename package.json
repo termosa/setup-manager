@@ -1,6 +1,6 @@
 {
   "name": "setup-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The interface to create JSON configurations within code",
   "main": "setup-manager.js",
   "scripts": {
