@@ -23,11 +23,12 @@ function pick(obj, name) {
  * Set the value to the object property
  */
 function put(obj, name, value) {
+  if (!name) { return _.extend(obj, value); }
   var key, keys = parse(name);
   while (key = keys.shift()) {
     if (keys.length === 0) {
       if (_.isObject(obj[key])) {
-        _.assign(obj[key], value);
+        _.extend(obj[key], value);
       } else {
         obj[key] = _.clone(value);
       }
@@ -46,6 +47,11 @@ module.exports = function(instance) {
     setup: function() { return config; },
     get: function(name) { return pick(config, name); },
     set: function(name, value) {
+      if (_.isObject(name)) {
+        put(config, null, name);
+        return manager;
+      }
+
       if (typeof value === "undefined") {
         return function builder(value) {
           put(config, name, value);

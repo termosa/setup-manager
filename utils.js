@@ -31,14 +31,14 @@ function extendArray(list, values) {
   return list;
 }
 
-function assign(object, values) {
+function extend(object, values) {
   return isArray(object)
     ? extendArray(object, values)
     : extendObject(object, values);
 }
 
 module.exports = {
-  assign: assign,
+  extend: extend,
   clone: clone,
   isArray: isArray,
   isObject: isObject

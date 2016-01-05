@@ -19,20 +19,20 @@ describe("Utils", function() {
     });
   });
 
-  describe("assign()", function() {
-    var assign = utils.assign;
+  describe("extend()", function() {
+    var extend = utils.extend;
 
     it("should copy properties from the source object", function() {
       var source = { a: 1 };
       var dist = {};
-      assign(dist, source);
+      extend(dist, source);
       assert.deepEqual(dist, source);
     });
 
     it("should keep properties of destination object", function() {
       var source = { a: 1 };
       var dist = { b: 2 };
-      assign(dist, source);
+      extend(dist, source);
       assert.propertyVal(dist, "a", 1);
       assert.propertyVal(dist, "b", 2);
     });
@@ -40,7 +40,7 @@ describe("Utils", function() {
     it("should replace properties of destination object with same named properties from source object", function() {
       var source = { a: 1 };
       var dist = { a: 2 };
-      assign(dist, source);
+      extend(dist, source);
       assert.propertyVal(dist, "a", 1);
     });
   });
