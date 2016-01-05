@@ -40,6 +40,14 @@ describe("Setup Manager API", function() {
       manager.set("list", [ 1, 2 ]);
       assert.deepEqual(manager.setup(), expect);
     });
+
+    it("should not modify complex objects like functions and regular expressions", function() {
+      var func = new Function;
+      var expr = new RegExp;
+      var result = setupManager({ func: func, expr: expr }).setup();
+      assert.equal(func, result.func);
+      assert.equal(expr.toString(), result.expr.toString());
+    });
   });
 
   describe("Extending", function() {
