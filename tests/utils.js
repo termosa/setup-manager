@@ -1,6 +1,5 @@
 var assert = require("chai").assert;
 var utils = require("../utils");
-console.log(assert);
 
 describe("Utils", function() {
   describe("clone()", function() {

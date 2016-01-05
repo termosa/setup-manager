@@ -9,11 +9,15 @@ function isObject(variable) {
 }
 
 function isArray(variable) {
-  return Array.isArray(variable);
+  return isObject(variable) && toString(variable) === "[object Array]";
 }
 
 function extendObject(hash, values) {
-  return Object.assign(hash, values);
+  var keys = Object.keys(values);
+  for (var i = keys.length; i--;) {
+    hash[keys[i]] = values[keys[i]];
+  }
+  return hash;
 }
 
 function extendArray(list, values) {
