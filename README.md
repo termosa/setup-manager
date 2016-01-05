@@ -85,6 +85,7 @@ constructor()
   .set("user.email", "alice@setup-manager.npm")
   .setup(); 
 // Returns: { "user": { "name": "Alice", "email": "alice@setup-manager.npm" }}
+```
 
 Usage
 -----
