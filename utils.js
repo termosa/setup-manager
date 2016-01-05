@@ -9,7 +9,7 @@ function isObject(variable) {
 }
 
 function isArray(variable) {
-  return isObject(variable) && toString(variable) === '[object Array]';
+  return Array.isArray(variable);
 }
 
 function extendObject(hash, values) {
