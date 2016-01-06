@@ -130,5 +130,12 @@ describe("Setup Manager API", function() {
       manager.set("list")([])([ 1 ])([ 2, 3 ]);
       assert.deepEqual(manager.setup(), expect);
     });
+
+    it("should receive two arguments and apply them as key-value object", function() {
+      var manager = setupManager();
+      var expect = { a: { b : 1 }};
+      manager.set("a")("b", 1);
+      assert.deepEqual(manager.setup(), expect);
+    });
   });
 });

@@ -53,8 +53,14 @@ module.exports = function(instance) {
       }
 
       if (typeof value === "undefined") {
-        return function builder(value) {
-          put(config, name, value);
+        return function builder(nested, value) {
+          if (typeof value === "undefined") {
+            value = nested;
+            nested = name;
+          } else {
+            nested = [name, nested].join(".");
+          }
+          put(config, nested, value);
           return builder;
         };
       }
