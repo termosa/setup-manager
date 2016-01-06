@@ -19,11 +19,9 @@ $ npm install --save setup-manager
 API
 ---
 
-#### Constructor
+##### constructor(/\* object \*/ source)
 
 Constructor can receive an optional object to clone it and use as a base.
-
-##### constructor(/\* object \*/ source)
 
 ```javascript
 var constructor = require("setup-manager");
