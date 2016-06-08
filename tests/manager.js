@@ -138,4 +138,24 @@ describe("Setup Manager API", function() {
       assert.deepEqual(manager.setup(), expect);
     });
   });
+
+  describe("Result", function() {
+    it("should return all of the settings in the object", function() {
+      var source = { a: { b: [ { c: 0 } ] }};
+      var manager = setupManager(source);
+      var expect = { a: { b: [ { c: 0 } ] }};
+      assert.deepEqual(manager.setup(), expect);
+    });
+
+    it("should return undefined if there is no value in passed name", function() {
+      var manager = setupManager();
+      assert.isUndefined(manager.setup("path"));
+    });
+
+    it("should return the object stored in passed name", function() {
+      var source = { a: { b: "value" }};
+      var manager = setupManager(source);
+      assert.equal(manager.setup("a.b"), "value");
+    });
+  });
 });

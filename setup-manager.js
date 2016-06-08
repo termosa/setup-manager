@@ -44,7 +44,10 @@ module.exports = function(instance) {
   var config = instance ? _.clone(instance) : {} ;
 
   var manager = {
-    setup: function() { return config; },
+    setup: function(name) {
+      if (name) return pick(config, name);
+      return config;
+    },
     get: function(name) { return pick(config, name); },
     set: function(name, value) {
       if (_.isObject(name)) {
